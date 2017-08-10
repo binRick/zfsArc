@@ -5,12 +5,19 @@ var prettyBytes = require('pretty-bytes'),
     rangePrompt = require('range-prompt'),
     fs = require('fs'),
     maxArcFile = '/sys/module/zfs/parameters/zfs_arc_max',
-    //maxArcFile = 'test',
+    maxArcFile = 'test',
     curMaxBytes = +fs.readFileSync(maxArcFile).toString(),
     c = require('chalk'),
     clear = require('cli-clear'),
     child = require('child_process'),
     os = require('os');
+
+var setArc = function(valMB){
+	var valBytes = valMB * 1024 * 1024;
+	console.log('seting to ', valBytes);
+	fs.writeFileSync(maxArcFile, valBytes);
+
+};
 
 var freeM = child.execSync('free -m').toString();
 var msg = c.cyan.bgBlack('Current ZFS ARC Max is ') + c.white.bgBlack(prettyBytes(curMaxBytes));
@@ -39,5 +46,5 @@ console.log(c.cyan.bgWhite(msg) + '\n');
 //console.log(pj.render(rP)+'\n\n');
 
 rangePrompt(promptMsg, rP)
-    .on('abort', (item) => console.log('You aborted, having chosen', item))
-    .on('submit', (item) => console.log('You chose', item))
+    .on('abort', (item) => console.log('You chose', item))
+    .on('submit', (item) => setArc(item))
