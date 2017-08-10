@@ -4,8 +4,8 @@ var prettyBytes = require('pretty-bytes'),
     pj = require('prettyjson'),
     rangePrompt = require('range-prompt'),
     fs = require('fs'),
-    //maxArcFile = '/sys/module/zfs/parameters/zfs_arc_max',
-    maxArcFile = 'test',
+    maxArcFile = '/sys/module/zfs/parameters/zfs_arc_max',
+    //maxArcFile = 'test',
     curMaxBytes = +fs.readFileSync(maxArcFile).toString(),
     c = require('chalk'),
     clear = require('cli-clear'),
@@ -18,13 +18,13 @@ var promptMsg = 'Select new ARC Size: ';
 var unit = 'MB';
 var min = 0;
 var max = +os.totalmem() / 1024 / 1024;
-var max = 16669847552/1024/1024;
+//var max = 16669847552/1024/1024;
 max = parseInt(max);
 var steps = 16;
 var step = parseInt(max/steps);
 var curValue = parseInt(curMaxBytes / 1024 / 1024);
 curValue = parseInt(curValue / step) * step;
-max = steps * curValue;
+max = steps * step;
 
 var rP = {
     min: min,
