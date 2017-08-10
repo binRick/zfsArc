@@ -12,27 +12,19 @@ var prettyBytes = require('pretty-bytes'),
     child = require('child_process'),
     os = require('os');
 
-
-
-
 var freeM = child.execSync('free -m').toString();
-clear();
-console.log('free -m : \n' + c.green(freeM));
 var msg = c.cyan.bgBlack('Current ZFS ARC Max is ') + c.white.bgBlack(prettyBytes(curMaxBytes));
 var promptMsg = 'Select new ARC Size: ';
 var unit = 'MB';
 var min = 0;
 var max = +os.totalmem() / 1024 / 1024;
-var step = parseInt(max/8);
-
-console.log(c.cyan.bgWhite(msg) + '\n');
-
+var max = 16669847552/1024/1024;
+max = parseInt(max);
+var steps = 16;
+var step = parseInt(max/steps);
 var curValue = parseInt(curMaxBytes / 1024 / 1024);
 curValue = parseInt(curValue / step) * step;
-if (curValue < min)
-    curValue = min;
-if (curValue > max)
-    curValue = max;
+max = steps * curValue;
 
 var rP = {
     min: min,
@@ -41,6 +33,9 @@ var rP = {
     step: step,
     unit: unit
 };
+clear();
+console.log('free -m : \n' + c.green(freeM));
+console.log(c.cyan.bgWhite(msg) + '\n');
 //console.log(pj.render(rP)+'\n\n');
 
 rangePrompt(promptMsg, rP)
