@@ -5,7 +5,7 @@ var prettyBytes = require('pretty-bytes'),
     rangePrompt = require('range-prompt'),
     fs = require('fs'),
     maxArcFile = '/sys/module/zfs/parameters/zfs_arc_max',
-    maxArcFile = 'test',
+//    maxArcFile = 'test',
     curMaxBytes = +fs.readFileSync(maxArcFile).toString(),
     c = require('chalk'),
     clear = require('cli-clear'),
@@ -14,9 +14,8 @@ var prettyBytes = require('pretty-bytes'),
 
 var setArc = function(valMB){
 	var valBytes = valMB * 1024 * 1024;
-	console.log('seting to ', valBytes);
+	console.log(c.green('seting '+maxArcFile+' to '+ valBytes+' bytes'))
 	fs.writeFileSync(maxArcFile, valBytes);
-
 };
 
 var freeM = child.execSync('free -m').toString();
