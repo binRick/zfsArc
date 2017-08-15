@@ -23,6 +23,7 @@
     "chalk": "^2.1.0",
     "cli-clear": "^1.0.4",
     "pretty-bytes": "^4.0.2",
+    "prettyjson": "^1.2.1",
     "range-prompt": "^0.1.1"
   }
 }
