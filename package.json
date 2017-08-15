@@ -16,6 +16,9 @@
     "url": "https://github.com/binRick/zfsArc/issues"
   },
   "homepage": "https://github.com/binRick/zfsArc#readme",
+  "bin": {
+    "zfsArc": "./index.js"
+  },
   "dependencies": {
     "chalk": "^2.1.0",
     "cli-clear": "^1.0.4",
